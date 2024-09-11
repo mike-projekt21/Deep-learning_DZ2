@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const paths = {
     src: path.resolve(__dirname, 'src'),
@@ -37,6 +38,12 @@ module.exports = {
     new HtmlWebpackPlugin({
         template: './index.html'
     }),
+    new CopyPlugin({
+      patterns: [
+          { from: '../node_modules/onnxruntime-web/dist/*.wasm', to: '[name][ext]' },
+          { from: './model.onnx', to: '[name][ext]'}
+      ]
+  })
   ],
 
   module: {
